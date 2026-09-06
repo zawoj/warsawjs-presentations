@@ -1,59 +1,53 @@
-import { headers as getHeaders } from 'next/headers.js'
-import Image from 'next/image'
+import config from '@payload-config'
 import { getPayload } from 'payload'
-import React from 'react'
-import { fileURLToPath } from 'url'
 
-import config from '@/payload.config'
 import './styles.css'
 
-export default async function HomePage() {
-  const headers = await getHeaders()
-  const payloadConfig = await config
-  const payload = await getPayload({ config: payloadConfig })
-  const { user } = await payload.auth({ headers })
+export const dynamic = 'force-dynamic'
 
-  const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
+const formatDate = (value: string) =>
+  new Intl.DateTimeFormat('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(value))
+
+export default async function HomePage() {
+  const payload = await getPayload({ config })
+  const { docs: events } = await payload.find({
+    collection: 'events',
+    where: { status: { equals: 'published' } },
+    sort: 'date',
+  })
 
   return (
-    <div className="home">
-      <div className="content">
-        <picture>
-          <source srcSet="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg" />
-          <Image
-            alt="Payload Logo"
-            height={65}
-            src="https://raw.githubusercontent.com/payloadcms/payload/3.x/packages/ui/src/assets/payload-favicon.svg"
-            width={65}
-          />
-        </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
-        <div className="links">
-          <a
-            className="admin"
-            href={payloadConfig.routes.admin}
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
-          </a>
-        </div>
-      </div>
-      <div className="footer">
-        <p>Update this page by editing</p>
-        <a className="codeLink" href={fileURL}>
-          <code>app/(frontend)/page.tsx</code>
-        </a>
-      </div>
-    </div>
+    <main className="schedule-shell">
+      <header className="schedule-header">
+        <span>WARSAWJS / SCHEDULE</span>
+        <a href="/admin">Open CMS ↗</a>
+      </header>
+
+      <section className="schedule-hero">
+        <p>Upcoming community events</p>
+        <h1>JavaScript lives here.</h1>
+      </section>
+
+      <section className="event-list" aria-label="Published WarsawJS events">
+        {events.length === 0 && (
+          <article className="event-card event-card--empty">
+            <span>NO PUBLISHED EVENTS</span>
+            <h2>Add one in Payload Admin.</h2>
+          </article>
+        )}
+
+        {events.map((event, index) => (
+          <article className="event-card" key={event.id}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h2>{event.title}</h2>
+            <time dateTime={event.date}>{formatDate(event.date)}</time>
+          </article>
+        ))}
+      </section>
+    </main>
   )
 }
