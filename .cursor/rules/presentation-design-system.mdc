@@ -1,0 +1,16 @@
+---
+description: Preserve the Payload CMS presentation's approved Grid design system
+alwaysApply: true
+---
+
+# Presentation design system
+
+Read `DESIGN_SYSTEM.md` before editing any slide, style, animation, or asset.
+
+- Grid is the only approved theme.
+- Reuse the documented colors, typography, spacing, components, and motion.
+- Do not introduce theme selectors, gradients, or unrelated visual styles.
+- Keep the code component fixed while animating only its lines.
+- Use official brand assets from `public/`.
+- Keep `DESIGN_SYSTEM.md` synchronized with approved design changes.
+- Verify at 16:9, then run `npm run build` and `git diff --check`.
