@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Payload 4.0 screenshot placeholder</title>
+  <desc id="desc">Grid placeholder for an official Payload 4.0 preview screenshot.</desc>
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#354149" stroke-opacity=".2" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="720" fill="#11161a"/>
+  <rect width="1200" height="720" fill="url(#grid)"/>
+  <rect x="42" y="42" width="1116" height="636" fill="none" stroke="#7d8990"/>
+  <rect x="42" y="42" width="6" height="636" fill="#2962ff"/>
+  <text x="84" y="104" fill="#7fa0ff" font-family="monospace" font-size="20">EARLY LOOK / WORK IN PROGRESS</text>
+  <text x="84" y="342" fill="#f3f5f6" font-family="Arial, sans-serif" font-size="72" font-weight="800">OFFICIAL 4.0</text>
+  <text x="84" y="420" fill="#f3f5f6" font-family="Arial, sans-serif" font-size="72" font-weight="800">SCREENSHOT</text>
+  <text x="84" y="604" fill="#91a0a8" font-family="monospace" font-size="19">PLACEHOLDER / REPLACE WITH PAYLOAD ASSET</text>
+</svg>
